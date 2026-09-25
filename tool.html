@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Rahul Tool - Ultra Premium</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050507;
+            --panel-bg: rgba(18, 18, 24, 0.75);
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.12);
+            --primary-color: #ff8c00;
+            --primary-light: #ffb347;
+            --primary-gradient: linear-gradient(135deg, #ff8c00 0%, #ffd700 50%, #ff8c00 100%);
+            --primary-gradient-soft: linear-gradient(135deg, rgba(255,140,0,0.15), rgba(255,215,0,0.05));
+            --text-color: #ffffff;
+            --text-secondary: #b8b8c0;
+            --text-muted: #6b6b78;
+            --success: #10b981;
+            --danger: #ef4444;
+            --telegram-blue: #229ED9;
+            --glow-sm: 0 0 8px rgba(255, 140, 0, 0.5);
+            --glow-md: 0 0 16px rgba(255, 140, 0, 0.6), 0 0 32px rgba(255, 140, 0, 0.3);
+            --glow-lg: 0 0 24px rgba(255, 140, 0, 0.7), 0 0 48px rgba(255, 140, 0, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; min-height: 100vh; padding: 8px; position: relative; overflow-x: hidden; letter-spacing: 0.2px; }
+        body::before, body::after { content: ''; position: fixed; border-radius: 50%; filter: blur(120px); z-index: 0; pointer-events: none; }
+        body::before { width: 350px; height: 350px; background: radial-gradient(circle, rgba(255,140,0,0.12), transparent 70%); top: -100px; left: -100px; animation: floatOrb1 20s ease-in-out infinite; }
+        body::after { width: 400px; height: 400px; background: radial-gradient(circle, rgba(34,158,217,0.08), transparent 70%); bottom: -150px; right: -150px; animation: floatOrb2 25s ease-in-out infinite; }
+        @keyframes floatOrb1 { 0%,100%{transform:translate(0,0)scale(1)} 50%{transform:translate(100px,50px)scale(1.2)} }
+        @keyframes floatOrb2 { 0%,100%{transform:translate(0,0)scale(1)} 50%{transform:translate(-80px,-60px)scale(1.15)} }
+
+        ::-webkit-scrollbar { width: 0px; height: 0px; display: none; }
+        * { scrollbar-width: none; -ms-overflow-style: none; }
+
+        .app-container { width: 100%; max-width: 460px; background: var(--panel-bg); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); border-radius: 20px; box-shadow: 0 0 0 1px var(--glass-border), 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05); overflow: hidden; position: relative; z-index: 1; border: 1px solid var(--glass-border); }
+
+        #loginPage { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 24px 20px; text-align: center; }
+        .login-logo { width: 90px; height: 90px; border-radius: 50%; border: 3px solid transparent; background: linear-gradient(var(--bg-color), var(--bg-color)) padding-box, var(--primary-gradient) border-box; box-shadow: var(--glow-lg); object-fit: cover; margin-bottom: 18px; animation: pulseGlow 3s ease-in-out infinite; }
+        @keyframes pulseGlow { 0%,100%{box-shadow:0 0 20px rgba(255,140,0,0.6),0 0 40px rgba(255,140,0,0.3);transform:scale(1)} 50%{box-shadow:0 0 32px rgba(255,140,0,0.9),0 0 64px rgba(255,140,0,0.5);transform:scale(1.03)} }
+        .glow-text { font-size: 22px; font-weight: 800; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 15px rgba(255,140,0,0.6)); margin-bottom: 6px; letter-spacing: 2px; }
+        .sub-text { font-size: 11px; color: var(--text-muted); margin-bottom: 24px; font-style: italic; }
+        .input-box { width: 100%; padding: 13px 15px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 12px; color: #fff; margin-bottom: 12px; outline: none; transition: all 0.3s; font-size: 13px; font-weight: 500; backdrop-filter: blur(10px); }
+        .input-box::placeholder { color: var(--text-muted); }
+        .input-box:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(255,140,0,0.1), var(--glow-sm); background: rgba(0,0,0,0.6); }
+        .btn { width: 100%; padding: 13px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 13px; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--primary-gradient); color: #000; box-shadow: 0 6px 20px rgba(255,140,0,0.35), inset 0 1px 0 rgba(255,255,255,0.3); position: relative; overflow: hidden; }
+        .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: left 0.6s; }
+        .btn:hover::before { left: 100%; }
+        .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(255,140,0,0.5); }
+        .btn:active { transform: translateY(0) scale(0.98); }
+        .btn-danger { background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff; }
+        .btn-secondary { background: rgba(255,255,255,0.06); color: #fff; border: 1px solid var(--glass-border); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+        .btn-copy { background: linear-gradient(135deg, #10b981, #059669); color: #fff; box-shadow: 0 6px 20px rgba(16,185,129,0.35); }
+        .btn-copy:hover { box-shadow: 0 10px 28px rgba(16,185,129,0.5); }
+        
+        .btn-telegram {
+            background: linear-gradient(135deg, #229ED9, #1a7ca8);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(34,158,217,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+            margin-top: 10px;
+        }
+        .btn-telegram:hover { box-shadow: 0 10px 28px rgba(34,158,217,0.6); transform: translateY(-1px); }
+        
+        .telegram-card {
+            background: linear-gradient(135deg, rgba(34,158,217,0.12), rgba(34,158,217,0.04));
+            border: 1px solid rgba(34,158,217,0.3);
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 18px;
+            text-align: center;
+        }
+        .telegram-card-title {
+            font-size: 12px;
+            color: var(--telegram-blue);
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .telegram-card-sub {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .otp-container { display: none; width: 100%; flex-direction: column; align-items: center; }
+        .otp-inputs { display: flex; gap: 6px; justify-content: center; margin: 18px 0; }
+        .otp-inputs input { width: 40px; height: 48px; text-align: center; font-size: 18px; font-weight: 700; background: rgba(0,0,0,0.4); border: 2px solid var(--glass-border); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s; }
+        .otp-inputs input:focus { border-color: var(--primary-color); box-shadow: var(--glow-md); transform: scale(1.05); }
+
+        .login-tab { display: flex; gap: 4px; margin-bottom: 18px; width: 100%; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 12px; border: 1px solid var(--glass-border); }
+        .login-tab button { flex: 1; padding: 9px 6px; background: transparent; border: none; color: var(--text-muted); border-radius: 9px; cursor: pointer; font-weight: 600; transition: all 0.3s; font-size: 10.5px; }
+        .login-tab button.active { background: var(--primary-gradient); color: #000; box-shadow: 0 4px 12px rgba(255,140,0,0.4); }
+
+        .header { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: rgba(0,0,0,0.5); border-bottom: 1px solid var(--glass-border); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 50; }
+        .header-left { display: flex; align-items: center; gap: 10px; }
+        .header-logo { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--primary-color); object-fit: cover; box-shadow: var(--glow-sm); }
+        .header-title { font-size: 14px; font-weight: 700; color: var(--primary-color); text-shadow: var(--glow-sm); }
+        .header-title span { display: block; font-size: 9px; color: var(--text-muted); font-weight: 400; margin-top: 1px; }
+        .menu-btn { background: var(--primary-gradient); border: none; color: #fff; padding: 7px 11px; border-radius: 9px; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 12px rgba(255,140,0,0.4); }
+        .menu-btn:hover { box-shadow: var(--glow-md); transform: scale(1.05); }
+        .online-status { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--success); font-weight: 600; }
+        .online-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); box-shadow: 0 0 8px var(--success); animation: blink 2s infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+        .sidebar { position: absolute; top: 0; left: -300px; width: 260px; height: 100%; background: rgba(10,10,15,0.96); backdrop-filter: blur(30px); z-index: 100; transition: left 0.4s cubic-bezier(0.4,0,0.2,1); padding: 18px 12px; border-right: 1px solid var(--glass-border); overflow-y: auto; box-shadow: 20px 0 60px rgba(0,0,0,0.5); }
+        .sidebar.open { left: 0; }
+        .sidebar-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 99; display: none; backdrop-filter: blur(4px); }
+        .sidebar-overlay.active { display: block; }
+        .sidebar ul { list-style: none; margin-top: 12px; }
+        .sidebar ul li { padding: 10px 12px; margin-bottom: 3px; border-radius: 10px; cursor: pointer; color: var(--text-secondary); font-weight: 500; transition: all 0.25s; display: flex; align-items: center; gap: 10px; font-size: 12.5px; border: 1px solid transparent; position: relative; overflow: hidden; }
+        .sidebar ul li::before { content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 100%; background: var(--primary-gradient); transform: scaleY(0); transition: transform 0.3s; }
+        .sidebar ul li:hover, .sidebar ul li.active { background: var(--primary-gradient-soft); color: var(--primary-color); border-color: rgba(255,140,0,0.2); transform: translateX(3px); }
+        .sidebar ul li:hover::before, .sidebar ul li.active::before { transform: scaleY(1); }
+
+        .main-content { padding: 14px; display: none; max-height: 78vh; overflow-y: auto; animation: fadeIn 0.4s ease; }
+        .main-content.active { display: block; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+        .card { background: var(--glass-bg); backdrop-filter: blur(20px); border-radius: 14px; padding: 14px; margin-bottom: 12px; border: 1px solid var(--glass-border); box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05); transition: all 0.4s; position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--glass-highlight), transparent); }
+        .card:hover { border-color: rgba(255,140,0,0.25); box-shadow: 0 12px 48px rgba(255,140,0,0.15); }
+        .card-title { font-size: 13px; font-weight: 700; color: var(--primary-color); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; text-shadow: 0 0 8px rgba(255,140,0,0.4); }
+
+        .status-bar { display: flex; justify-content: space-between; background: rgba(0,0,0,0.4); padding: 8px 13px; border-radius: 10px; margin-bottom: 12px; font-size: 10px; color: var(--text-muted); border: 1px solid var(--glass-border); font-weight: 500; }
+        .status-bar span { color: var(--success); display: flex; align-items: center; gap: 5px; font-weight: 600; }
+
+        .input-group { margin-bottom: 10px; }
+        .input-group label { display: block; font-size: 10px; color: var(--text-secondary); margin-bottom: 5px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+        .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 11px 13px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 10px; color: #fff; outline: none; font-size: 12px; transition: all 0.3s; font-weight: 500; }
+        .input-group input:focus, .input-group select:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(255,140,0,0.1), var(--glow-sm); background: rgba(0,0,0,0.6); }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+        .stat-box { background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); border: 1px solid var(--glass-border); border-radius: 12px; padding: 12px 8px; text-align: center; transition: all 0.3s; position: relative; overflow: hidden; }
+        .stat-box::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 1px; background: linear-gradient(90deg, transparent, var(--primary-color), transparent); opacity: 0.5; }
+        .stat-box:hover { border-color: rgba(255,140,0,0.3); box-shadow: 0 8px 24px rgba(255,140,0,0.1); }
+        .stat-box h3 { font-size: 18px; color: var(--primary-color); margin-bottom: 3px; text-shadow: 0 0 12px var(--primary-color); font-weight: 800; }
+        .stat-box p { font-size: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+
+        .key-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.35); padding: 10px; border-radius: 10px; margin-bottom: 6px; border: 1px solid var(--glass-border); font-size: 11px; transition: all 0.3s; gap: 6px; }
+        .key-item:hover { border-color: rgba(255,140,0,0.25); background: rgba(0,0,0,0.45); }
+
+        .key-status { padding: 3px 8px; border-radius: 20px; font-size: 8px; font-weight: 700; text-transform: uppercase; }
+        .key-status.active { background: rgba(16,185,129,0.15); color: var(--success); border: 1px solid rgba(16,185,129,0.3); }
+        .key-status.expired { background: rgba(239,68,68,0.15); color: var(--danger); border: 1px solid rgba(239,68,68,0.3); }
+        
+        .copy-btn-sm {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            color: #fff;
+            padding: 5px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(16,185,129,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .copy-btn-sm:hover {
+            box-shadow: 0 5px 15px rgba(16,185,129,0.5);
+            transform: scale(1.05);
+        }
+
+        .switch { position: relative; display: inline-block; width: 42px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #2a2a35; transition: .4s; border-radius: 24px; border: 1px solid var(--glass-border); }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background: var(--primary-gradient); box-shadow: var(--glow-sm); }
+        input:checked + .slider:before { transform: translateX(18px); }
+
+        .flex-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .flex-row:last-child { border-bottom: none; }
+        .flex-row > span:first-child { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+
+        .toast { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--primary-gradient); color: #000; padding: 12px 20px; border-radius: 12px; font-weight: 700; z-index: 999; opacity: 0; transition: all 0.4s; pointer-events: none; box-shadow: 0 12px 32px rgba(255,140,0,0.5); font-size: 12px; max-width: 90%; text-align: center; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        .chart-container { display: flex; align-items: flex-end; justify-content: space-around; height: 110px; padding: 10px 0; border-bottom: 1px solid var(--glass-border); margin-bottom: 10px; }
+        .bar { width: 18px; background: var(--primary-gradient); border-radius: 5px 5px 0 0; transition: height 0.8s; position: relative; box-shadow: 0 0 12px rgba(255,140,0,0.4); }
+        .bar-value { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 9px; color: var(--primary-color); font-weight: 700; }
+
+        .role-badge { background: var(--primary-gradient); color: #000; padding: 3px 9px; border-radius: 20px; font-size: 8px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 4px 12px rgba(255,140,0,0.4); }
+        .device-badge { background: rgba(255,140,0,0.15); color: var(--primary-color); padding: 3px 9px; border-radius: 20px; font-size: 9px; font-weight: 700; border: 1px solid rgba(255,140,0,0.3); display: inline-block; margin: 2px 2px 2px 0; }
+        .balance-badge { background: linear-gradient(135deg, #10b981, #059669); color: #fff; padding: 3px 9px; border-radius: 20px; font-size: 9px; font-weight: 800; box-shadow: 0 4px 12px rgba(16,185,129,0.4); display: inline-block; }
+        .balance-badge.owner { background: linear-gradient(135deg, #ffd700, #ff8c00); color: #000; }
+
+        .link-box { background: rgba(0,0,0,0.5); border: 1px dashed var(--primary-color); border-radius: 10px; padding: 12px; font-family: monospace; font-size: 10px; color: var(--primary-color); word-break: break-all; margin: 10px 0; text-align: center; }
+        .unlock-success { text-align: center; padding: 30px 20px; }
+        .unlock-success .icon { font-size: 70px; margin-bottom: 15px; animation: pulseGlow 2s infinite; }
+        .unlock-success h1 { color: var(--success); font-size: 22px; margin-bottom: 8px; text-shadow: 0 0 20px var(--success); }
+        .unlock-success p { color: var(--text-muted); font-size: 12px; }
+        .unlock-fail { text-align: center; padding: 30px 20px; }
+        .unlock-fail .icon { font-size: 70px; margin-bottom: 15px; }
+        .unlock-fail h1 { color: var(--danger); font-size: 22px; margin-bottom: 8px; text-shadow: 0 0 20px var(--danger); }
+        .unlock-fail p { color: var(--text-muted); font-size: 12px; }
+
+        .ripple { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.5); transform: scale(0); animation: rippleAnim 0.6s ease-out; pointer-events: none; }
+        @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+<div class="app-container" id="appContainer"></div>
+
+<div class="toast" id="toast">Action Completed!</div>
+
+<script>
+    // =====================================================================
+    // 🚨 EMAILJS CONFIGURATION
+    // =====================================================================
+    const EMAILJS_SERVICE_ID = "service_7kb62lq";
+    const EMAILJS_TEMPLATE_ID = "template_wawhd3p";
+    const EMAILJS_PUBLIC_KEY = "R-lnwyztTZjCefY9R";
+    if (typeof emailjs !== 'undefined') { emailjs.init(EMAILJS_PUBLIC_KEY); }
+    
+    // =====================================================================
+    // 👑 OWNER GMAILS (YAHAN APNE DONO GMAIL DAALEIN)
+    // =====================================================================
+    const OWNER_EMAILS = [
+        "rahulkumar8439500@gmail.com",   // <-- Owner Gmail 1
+        "Maxicogamer45@gmail.com"          // <-- Owner Gmail 2 (Yahan apna dusra Gmail daalein)
+    ];
+
+    // =====================================================================
+    // 📱 TELEGRAM USERNAME
+    // =====================================================================
+    const TELEGRAM_USERNAME = "RahulxAlpha";
+
+    // =====================================================================
+    // --- SAFE HELPERS ---
+    // =====================================================================
+    function safeGet(id) { const el = document.getElementById(id); if (!el) console.warn(`Element "${id}" not found`); return el; }
+    function safeSetText(id, text) { const el = safeGet(id); if (el) el.innerText = text; }
+    function safeSetDisplay(id, display) { const el = safeGet(id); if (el) el.style.display = display; }
+
+    // =====================================================================
+    // --- 1. GLOBAL STATE ---
+    // =====================================================================
+    let keys = JSON.parse(localStorage.getItem('rahulKeys')) || [];
+    let users = JSON.parse(localStorage.getItem('rahulUsers')) || [];
+    let logs = JSON.parse(localStorage.getItem('rahulLogs')) || [];
+    let trials = JSON.parse(localStorage.getItem('rahulTrials')) || [];
+    let referrals = JSON.parse(localStorage.getItem('rahulReferrals')) || [];
+    let currentRole = localStorage.getItem('rahulRole') || 'owner';
+    let currentUser = JSON.parse(localStorage.getItem('rahulCurrentUser')) || null;
+    let ownerCredentials = JSON.parse(localStorage.getItem('rahulOwnerCreds')) || null;
+    let settings = JSON.parse(localStorage.getItem('rahulSettings')) || { sound: true, haptic: true, autoRefresh: false, showTips: true, soundOnActions: true };
+    let ownerOtp = '';
+    let ownerOtpExpiry = 0;
+    let telegramUsername = localStorage.getItem('rahulTelegramUsername') || TELEGRAM_USERNAME;
+    let lastOwnerEmail = ''; // Track which owner email was used
+
+    const licensePlans = [
+        { id: '2h', label: '2 Hours', price: 10, days: 0.0833 },
+        { id: '5h', label: '5 Hours', price: 20, days: 0.2083 },
+        { id: '12h', label: '12 Hours', price: 40, days: 0.5 },
+        { id: '1d', label: '1 Days', price: 80, days: 1 },
+        { id: '3d', label: '3 Days', price: 150, days: 3 },
+        { id: '7d', label: '7 Days', price: 400, days: 7 },
+        { id: '14d', label: '14 Days', price: 750, days: 14 },
+        { id: '30d', label: '30 Days', price: 900, days: 30 },
+        { id: '60d', label: '60 Days', price: 1500, days: 60 }
+    ];
+
+    // =====================================================================
+    // --- 2. INIT (With Referral Fix) ---
+    // =====================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        updateClock(); setInterval(updateClock, 1000);
+        
+        // Fix: Ensure all referrals are in UPPERCASE format
+        fixAllReferrals();
+        
+        // Ensure default demo referral exists
+        if (referrals.length === 0) {
+            referrals.push({ code: 'RAHUL-DEMO', days: 30, amount: 100, used: false, role: 'user', createdAt: new Date().toLocaleString() });
+            saveReferrals();
+        }
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const unlockKey = urlParams.get('key');
+        if (unlockKey) { showUnlockPage(unlockKey); return; }
+        
+        if (currentUser && currentUser.username && currentUser.referralUsed) {
+            renderMainApp(); updateUserDisplay(); generatePanels(); showPage('dashboard');
+        } else {
+            renderLoginPage();
+        }
+    });
+
+    function fixAllReferrals() {
+        let changed = false;
+        referrals.forEach(r => {
+            if (r.code !== r.code.toUpperCase()) {
+                r.code = r.code.toUpperCase();
+                changed = true;
+            }
+        });
+        if (changed) {
+            saveReferrals();
+            console.log('Fixed referrals to uppercase');
+        }
+    }
+
+    function updateClock() { const el = document.getElementById('currentTime'); if(el) el.innerText = new Date().toLocaleTimeString(); }
+
+    // =====================================================================
+    // --- BALANCE FUNCTIONS ---
+    // =====================================================================
+    function getMyBalance() {
+        if (currentRole === 'owner') return '∞';
+        if (!currentUser) return '0';
+        const u = users.find(x => x.id === currentUser.id);
+        return u ? (u.balance || 0) : (currentUser.balance || 0);
+    }
+
+    function hasEnoughBalance(cost) {
+        if (currentRole === 'owner') return true;
+        const balance = parseFloat(getMyBalance()) || 0;
+        return balance >= cost;
+    }
+
+    function deductBalance(cost) {
+        if (currentRole === 'owner') return true;
+        const idx = users.findIndex(u => u.id === currentUser.id);
+        if (idx === -1) return false;
+        if ((users[idx].balance || 0) < cost) return false;
+        users[idx].balance = (users[idx].balance || 0) - cost;
+        saveUsers();
+        currentUser = users[idx];
+        localStorage.setItem('rahulCurrentUser', JSON.stringify(currentUser));
+        updateUserDisplay();
+        return true;
+    }
+
+    function addBalanceToUser(userId, amount) {
+        const idx = users.findIndex(u => u.id === userId);
+        if (idx === -1) return false;
+        users[idx].balance = (users[idx].balance || 0) + amount;
+        saveUsers();
+        addLog('BALANCE_ADD', `₹${amount} added to ${users[idx].username}`);
+        return true;
+    }
+
+    // =====================================================================
+    // --- TELEGRAM FUNCTION ---
+    // =====================================================================
+    function openTelegramProfile() {
+        const username = telegramUsername || TELEGRAM_USERNAME;
+        window.open(`https://t.me/${username}`, '_blank');
+        showToast(`Telegram opening: @${username}`);
+    }
+
+    function saveTelegramUsername() {
+        const input = document.getElementById('settingsTelegramUsername');
+        if (!input) return;
+        let username = (input.value || '').trim().replace('@', '');
+        if (!username) return showToast('Telegram Username daalein!', true);
+        telegramUsername = username;
+        localStorage.setItem('rahulTelegramUsername', username);
+        showToast(`Telegram Username saved: @${username}`);
+        addLog('TELEGRAM_UPDATE', `Username: @${username}`);
+    }
+
+    // =====================================================================
+    // --- COPY FUNCTIONS ---
+    // =====================================================================
+    function copyToClipboard(text) {
+        return new Promise((resolve, reject) => {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(resolve).catch(reject);
+            } else {
+                try {
+                    const temp = document.createElement('textarea');
+                    temp.value = text;
+                    temp.style.position = 'fixed';
+                    temp.style.opacity = '0';
+                    document.body.appendChild(temp);
+                    temp.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(temp);
+                    resolve();
+                } catch (err) { reject(err); }
+            }
+        });
+    }
+
+    function copyKeyOnly(keyStr) {
+        copyToClipboard(keyStr).then(() => {
+            showToast(`✅ Key Copied: ${keyStr}`);
+            playSound('success');
+            if (settings.haptic && navigator.vibrate) navigator.vibrate(20);
+            addLog('COPY_KEY', keyStr);
+        }).catch(() => showToast('Copy fail!', true));
+    }
+
+    function copyFullLicense(keyStr) {
+        const key = keys.find(k => k.key === keyStr);
+        if (!key) return showToast('Key not found!', true);
+        
+        const licenseText = 
+`🔑 RAHUL TOOL LICENSE 🔑
+━━━━━━━━━━━━━━━━━━━━━━
+Key        : ${key.key}
+Game       : ${key.game}
+Plan       : ${key.plan}
+Expiry     : ${key.expiry}
+Max Devices: ${key.maxDevices}
+Devices    : ${(key.devices || []).length}/${key.maxDevices}
+Status     : ${key.status.toUpperCase()}
+━━━━━━━━━━━━━━━━━━━━━━
+Generated  : ${new Date().toLocaleString()}
+© 2026 RAHUL TOOL`;
+
+        copyToClipboard(licenseText).then(() => {
+            showToast(`✅ Full License Copied!`);
+            playSound('success');
+            if (settings.haptic && navigator.vibrate) navigator.vibrate(20);
+            addLog('COPY_LICENSE', keyStr);
+        }).catch(() => showToast('Copy fail!', true));
+    }
+
+    function copyAllKeysList() {
+        if (keys.length === 0) return showToast('No keys to copy', true);
+        const allKeys = keys.map(k => k.key).join('\n');
+        copyToClipboard(allKeys).then(() => {
+            showToast(`✅ ${keys.length} Keys Copied!`);
+            playSound('success');
+        }).catch(() => showToast('Copy fail!', true));
+    }
+
+    // =====================================================================
+    // --- 3. RENDER LOGIN PAGE ---
+    // =====================================================================
+    function renderLoginPage() {
+        const container = document.getElementById('appContainer');
+        container.innerHTML = `
+            <div id="loginPage">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23000' stroke='%23ff8c00' stroke-width='3'/><text x='50' y='65' font-size='45' text-anchor='middle' fill='%23ff8c00' font-family='Arial' font-weight='bold'>R</text></svg>" alt="Rahul Logo" class="login-logo">
+                <div class="glow-text">RAHUL TOOL</div>
+                <div class="sub-text">✦ Ultra Premium Key System ✦</div>
+
+                <div class="login-tab">
+                    <button id="tabReferral" class="active" onclick="switchLoginTab('referral')">🤝 Referral</button>
+                    <button id="tabOwner" onclick="switchLoginTab('owner')">👑 Owner</button>
+                    <button id="tabUser" onclick="switchLoginTab('user')">👤 User</button>
+                </div>
+
+                <div id="referralLoginForm" style="width: 100%;">
+                    <input type="text" id="referralCode" class="input-box" placeholder="Enter Referral Code" autocomplete="off" spellcheck="false">
+                    <input type="text" id="refUsername" class="input-box" placeholder="Create Username" autocomplete="off" spellcheck="false">
+                    <input type="password" id="refPassword" class="input-box" placeholder="Create Password" autocomplete="new-password">
+                    <button class="btn" onclick="loginWithReferral()">🔓 LOGIN WITH REFERRAL</button>
+                    <p style="margin-top: 14px; font-size: 10px; color: var(--text-muted);">Referral code ke bina login nahi ho sakta.</p>
+                </div>
+
+                <div id="ownerLoginForm" style="display: none; width: 100%;">
+                    <div id="ownerEmailStep">
+                        <input type="email" id="ownerEmail" class="input-box" placeholder="Enter Owner Gmail ID" autocomplete="email">
+                        <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 10px;">✅ 2 Owner Gmail Supported</p>
+                        <button class="btn" onclick="sendOwnerOtp()">📧 SEND OTP</button>
+                    </div>
+                    <div id="ownerOtpContainer" class="otp-container">
+                        <div style="font-size: 40px; margin-bottom: 10px;">✉️</div>
+                        <div style="color: var(--primary-color); font-weight: 700; font-size: 13px;">OTP SENT!</div>
+                        <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 14px;">Sent to: <span id="displayOwnerEmail">owner@gmail.com</span></div>
+                        <div class="otp-inputs">
+                            <input type="text" inputmode="numeric" maxlength="1" oninput="moveOtp(this, 1)" onkeydown="otpKeydown(event, 1)">
+                            <input type="text" inputmode="numeric" maxlength="1" oninput="moveOtp(this, 2)" onkeydown="otpKeydown(event, 2)">
+                            <input type="text" inputmode="numeric" maxlength="1" oninput="moveOtp(this, 3)" onkeydown="otpKeydown(event, 3)">
+                            <input type="text" inputmode="numeric" maxlength="1" oninput="moveOtp(this, 4)" onkeydown="otpKeydown(event, 4)">
+                            <input type="text" inputmode="numeric" maxlength="1" oninput="moveOtp(this, 5)" onkeydown="otpKeydown(event, 5)">
+                            <input type="text" inputmode="numeric" maxlength="1" oninput="moveOtp(this, 6)" onkeydown="otpKeydown(event, 6)">
+                        </div>
+                        <button class="btn" onclick="verifyOwnerOtp()">🔓 VERIFY & LOGIN</button>
+                        <button class="btn btn-secondary" style="margin-top: 8px;" onclick="goBackOwnerLogin()">← BACK</button>
+                        <p id="ownerOtpHint" style="margin-top: 14px; font-size: 11px; color: #ffd700;"></p>
+                    </div>
+                </div>
+
+                <div id="userLoginForm" style="display: none; width: 100%;">
+                    <input type="text" id="userLoginUsername" class="input-box" placeholder="Enter Username" autocomplete="username" spellcheck="false">
+                    <input type="password" id="userLoginPassword" class="input-box" placeholder="Enter Password" autocomplete="current-password">
+                    <button class="btn" onclick="loginWithUser()">🔓 LOGIN</button>
+                    <p style="margin-top: 14px; font-size: 10px; color: var(--text-muted);">Pehle referral se account banaya ho tabhi login karein.</p>
+                </div>
+
+                <div class="telegram-card">
+                    <div class="telegram-card-title">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.832.942z"/></svg>
+                        Telegram Support
+                    </div>
+                    <div class="telegram-card-sub">Kisi bhi help ke liye Telegram par contact karein</div>
+                    <button class="btn btn-telegram" onclick="openTelegramProfile()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.832.942z"/></svg>
+                        OPEN TELEGRAM
+                    </button>
+                </div>
+            </div>
+        `;
+        attachRippleEffect();
+    }
+
+    // =====================================================================
+    // --- 4. RENDER MAIN APP ---
+    // =====================================================================
+    function renderMainApp() {
+        const container = document.getElementById('appContainer');
+        container.innerHTML = `
+            <div id="mainApp">
+                <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+                <div class="sidebar" id="sidebar">
+                    <div style="text-align: center; margin-bottom: 18px; padding-bottom: 15px; border-bottom: 1px solid var(--glass-border);">
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23000' stroke='%23ff8c00' stroke-width='3'/><text x='50' y='65' font-size='45' text-anchor='middle' fill='%23ff8c00' font-family='Arial' font-weight='bold'>R</text></svg>" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--primary-color); box-shadow: var(--glow-md);">
+                        <div style="color: var(--primary-color); font-weight: 800; margin-top: 8px; text-shadow: var(--glow-sm); letter-spacing: 2px; font-size: 13px;">RAHUL TOOL</div>
+                        <div id="userRoleDisplay" class="role-badge" style="margin-top: 6px; display: inline-block;">OWNER</div>
+                        <div id="userBalanceDisplay" class="balance-badge" style="margin-top: 6px; display: inline-block;">₹0</div>
+                        <div id="userReferralDisplay" style="margin-top: 6px; font-size: 9px; color: var(--text-muted); font-weight: 500;"></div>
+                    </div>
+                    <ul id="sidebarMenu"></ul>
+                </div>
+
+                <div class="header">
+                    <div class="header-left">
+                        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23000' stroke='%23ff8c00' stroke-width='3'/><text x='50' y='65' font-size='45' text-anchor='middle' fill='%23ff8c00' font-family='Arial' font-weight='bold'>R</text></svg>" class="header-logo">
+                        <div class="header-title">RAHUL TOOL<span id="pageTitle">Dashboard</span></div>
+                    </div>
+                    <div class="online-status"><span class="online-dot"></span> Online</div>
+                </div>
+
+                <div id="contentContainer" style="padding: 14px; max-height: 78vh; overflow-y: auto;"></div>
+            </div>
+        `;
+        attachRippleEffect();
+    }
+
+    function attachRippleEffect() {
+        document.querySelectorAll('.btn, .menu-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+                playSound('click');
+                if (settings.haptic && navigator.vibrate) navigator.vibrate(10);
+            });
+        });
+    }
+
+    // =====================================================================
+    // --- 5. LOGIN TABS ---
+    // =====================================================================
+    function switchLoginTab(tab) {
+        const tRef = safeGet('tabReferral'); if(tRef) tRef.classList.toggle('active', tab === 'referral');
+        const tOwn = safeGet('tabOwner'); if(tOwn) tOwn.classList.toggle('active', tab === 'owner');
+        const tUsr = safeGet('tabUser'); if(tUsr) tUsr.classList.toggle('active', tab === 'user');
+        safeSetDisplay('referralLoginForm', tab === 'referral' ? 'block' : 'none');
+        safeSetDisplay('ownerLoginForm', tab === 'owner' ? 'block' : 'none');
+        safeSetDisplay('userLoginForm', tab === 'user' ? 'block' : 'none');
+    }
+
+    // =====================================================================
+    // --- 6. REFERRAL LOGIN ---
+    // =====================================================================
+    function loginWithReferral() {
+        let code = (document.getElementById('referralCode')?.value || '').trim().toUpperCase();
+        const username = (document.getElementById('refUsername')?.value || '').trim();
+        const password = (document.getElementById('refPassword')?.value || '').trim();
+
+        if (!code) return showToast('Referral Code daalein!', true);
+        if (!username || username.length < 3) return showToast('Username kam se kam 3 characters!', true);
+        if (!password || password.length < 3) return showToast('Password kam se kam 3 characters!', true);
+
+        const ref = referrals.find(r => r.code.toUpperCase() === code);
+        if (!ref) {
+            console.log('Available referrals:', referrals.map(r => r.code));
+            return showToast('Invalid Referral Code!', true);
+        }
+        if (ref.used) return showToast('Yeh Referral Code already use ho chuka hai!', true);
+        if (users.find(u => u.username.toLowerCase() === username.toLowerCase())) return showToast('Username already exists!', true);
+
+        const expiry = new Date();
+        expiry.setDate(expiry.getDate() + (ref.days || 30));
+
+        const newUser = {
+            id: Date.now(), username, password, referralCode: code, days: ref.days, amount: ref.amount,
+            role: ref.role || 'user', status: 'active', expiry: expiry.toISOString().split('T')[0],
+            createdAt: new Date().toLocaleString(), referralUsed: true,
+            balance: ref.amount || 0
+        };
+        users.push(newUser);
+        saveUsers();
+        ref.used = true; ref.usedBy = username; ref.usedAt = new Date().toLocaleString();
+        saveReferrals();
+
+        currentUser = newUser; currentRole = newUser.role;
+        localStorage.setItem('rahulCurrentUser', JSON.stringify(currentUser));
+        localStorage.setItem('rahulRole', currentRole);
+
+        addLog('REFERRAL_LOGIN', `${username} logged in with referral ${code} as ${newUser.role} (Balance: ₹${newUser.balance})`);
+        showToast(`Welcome! ${ref.days} days + ₹${ref.amount} balance mil gaya.`);
+        playSound('success');
+
+        renderMainApp();
+        updateUserDisplay(); generatePanels(); showPage('dashboard');
+    }
+
+    // =====================================================================
+    // --- 7. OWNER LOGIN (MULTI-GMAIL SUPPORT) ---
+    // =====================================================================
+    async function sendOwnerOtp() {
+        const emailInput = document.getElementById('ownerEmail');
+        if (!emailInput) return showToast('Email field not found!', true);
+        const email = (emailInput.value || '').trim().toLowerCase();
+        
+        if (!email || !email.includes('@')) return showToast('Sahi Gmail ID daalein!', true);
+        
+        // ✅ Check if email matches ANY of the owner emails
+        const isOwner = OWNER_EMAILS.some(ownerEmail => ownerEmail.toLowerCase() === email);
+        if (!isOwner) {
+            return showToast('Yeh Gmail Owner ki nahi hai!', true);
+        }
+
+        safeSetText('displayOwnerEmail', email);
+        lastOwnerEmail = email; // Save for later
+        
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        ownerOtp = otp;
+        ownerOtpExpiry = Date.now() + 5 * 60 * 1000;
+
+        const isEmailJSConfigured = EMAILJS_SERVICE_ID !== "YOUR_SERVICE_ID" && EMAILJS_TEMPLATE_ID !== "YOUR_TEMPLATE_ID" && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY";
+
+        if (isEmailJSConfigured && typeof emailjs !== 'undefined') {
+            showToast('OTP Bheja ja raha hai...');
+            try {
+                await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { 
+                    to_email: email, otp: otp, 
+                    message: `Aapka Owner OTP hai: ${otp}. Yeh 5 minute ke liye valid hai.`
+                });
+                safeSetDisplay('ownerOtpContainer', 'flex');
+                safeSetDisplay('ownerEmailStep', 'none');
+                safeSetText('ownerOtpHint', '✅ OTP aapke Gmail par bhej diya gaya hai.');
+                showToast('OTP Sent!');
+            } catch (error) {
+                console.error('EmailJS Error:', error);
+                safeSetDisplay('ownerOtpContainer', 'flex');
+                safeSetDisplay('ownerEmailStep', 'none');
+                safeSetText('ownerOtpHint', `🔑 DEMO OTP: ${otp}`);
+                showToast('Email error! Demo OTP screen par.', true);
+            }
+        } else {
+            safeSetDisplay('ownerOtpContainer', 'flex');
+            safeSetDisplay('ownerEmailStep', 'none');
+            safeSetText('ownerOtpHint', `🔑 DEMO OTP: ${ownerOtp}`);
+            showToast('Demo OTP screen par dikhaya gaya!');
+        }
+    }
+
+    function moveOtp(current, index) {
+        current.value = current.value.replace(/[^0-9]/g, '');
+        if (current.value.length === 1) {
+            const next = current.nextElementSibling;
+            if (next && next.tagName === 'INPUT') next.focus();
+        }
+    }
+
+    function otpKeydown(event, index) {
+        if (event.key === 'Backspace' && !event.target.value) {
+            const prev = event.target.previousElementSibling;
+            if (prev && prev.tagName === 'INPUT') prev.focus();
+        }
+    }
+
+    function verifyOwnerOtp() {
+        const inputs = document.querySelectorAll('.otp-inputs input');
+        if (!inputs || inputs.length === 0) return showToast('OTP inputs not found!', true);
+        
+        let otp = '';
+        inputs.forEach(input => otp += (input.value || '').trim());
+        
+        if (otp.length !== 6) return showToast('6-digit OTP daalein!', true);
+        if (Date.now() > ownerOtpExpiry) return showToast('OTP expire ho gaya! Dobara bhejein.', true);
+        if (otp !== ownerOtp) return showToast('Galat OTP! Dobara try karein.', true);
+
+        currentRole = 'owner';
+        currentUser = { username: 'Owner', role: 'owner', balance: Infinity, email: lastOwnerEmail };
+        localStorage.setItem('rahulRole', currentRole);
+        localStorage.setItem('rahulCurrentUser', JSON.stringify(currentUser));
+        
+        if (!ownerCredentials) {
+            const newUsername = prompt('Owner Username set karein (future logins ke liye):');
+            if (newUsername && newUsername.trim()) {
+                const newPassword = prompt('Owner Password set karein (future logins ke liye):');
+                if (newPassword && newPassword.trim()) {
+                    ownerCredentials = { username: newUsername.trim(), password: newPassword.trim() };
+                    localStorage.setItem('rahulOwnerCreds', JSON.stringify(ownerCredentials));
+                    showToast('Owner credentials saved!');
+                }
+            }
+        }
+        
+        showToast(`Owner Login Successful! (${lastOwnerEmail})`);
+        playSound('success');
+        
+        renderMainApp();
+        updateUserDisplay(); generatePanels(); showPage('dashboard');
+        addLog('OWNER_LOGIN', `Owner logged in: ${lastOwnerEmail}`);
+    }
+
+    function goBackOwnerLogin() {
+        safeSetDisplay('ownerOtpContainer', 'none');
+        safeSetDisplay('ownerEmailStep', 'block');
+    }
+
+    // =====================================================================
+    // --- 8. USER LOGIN ---
+    // =====================================================================
+    function loginWithUser() {
+        const username = (document.getElementById('userLoginUsername')?.value || '').trim();
+        const password = (document.getElementById('userLoginPassword')?.value || '').trim();
+        if (!username || !password) return showToast('Username & Password daalein!', true);
+
+        if (ownerCredentials && username === ownerCredentials.username && password === ownerCredentials.password) {
+            currentUser = { username: 'Owner', role: 'owner', balance: Infinity };
+            currentRole = 'owner';
+            localStorage.setItem('rahulCurrentUser', JSON.stringify(currentUser));
+            localStorage.setItem('rahulRole', currentRole);
+            showToast('Owner Login Successful!');
+            playSound('success');
+            renderMainApp();
+            updateUserDisplay(); generatePanels(); showPage('dashboard');
+            return;
+        }
+
+        const user = users.find(u => u.username === username && u.password === password);
+        if (!user) return showToast('Galat Username ya Password!', true);
+        if (user.status !== 'active') return showToast('Account inactive!', true);
+
+        currentUser = user; currentRole = user.role;
+        localStorage.setItem('rahulCurrentUser', JSON.stringify(currentUser));
+        localStorage.setItem('rahulRole', currentRole);
+
+        showToast('Login Successful!');
+        playSound('success');
+        renderMainApp();
+        updateUserDisplay(); generatePanels(); showPage('dashboard');
+        addLog('USER_LOGIN', `${username} logged in`);
+    }
+
+    function updateUserDisplay() {
+        safeSetText('userRoleDisplay', currentRole.toUpperCase());
+        const balanceEl = document.getElementById('userBalanceDisplay');
+        if (balanceEl) {
+            if (currentRole === 'owner') {
+                balanceEl.innerText = '∞';
+                balanceEl.className = 'balance-badge owner';
+            } else {
+                const bal = parseFloat(getMyBalance()) || 0;
+                balanceEl.innerText = `₹${bal}`;
+                balanceEl.className = 'balance-badge';
+            }
+        }
+        if (currentUser && currentUser.referralCode) {
+            safeSetText('userReferralDisplay', `Ref: ${currentUser.referralCode} | ₹${currentUser.amount} | ${currentUser.days} days`);
+        } else if (currentUser && currentUser.username) {
+            safeSetText('userReferralDisplay', `User: ${currentUser.username}`);
+        }
+    }
+
+    // =====================================================================
+    // --- FIXED LOGOUT FUNCTION ---
+    // =====================================================================
+    function logout() {
+        if (!confirm('Logout karna chahte hain?')) return;
+        try {
+            localStorage.removeItem('rahulCurrentUser');
+            localStorage.removeItem('rahulRole');
+            currentUser = null;
+            currentRole = 'owner';
+            window.location.reload();
+        } catch (e) {
+            console.error('Logout error:', e);
+            showToast('Logout fail! Dobara try karein.', true);
+        }
+    }
+
+    // =====================================================================
+    // --- 9. UNLOCK PAGE ---
+    // =====================================================================
+    function showUnlockPage(keyStr) {
+        const key = keys.find(k => k.key === keyStr);
+        const container = document.getElementById('appContainer');
+        
+        let html = '';
+        if (key) {
+            if (key.status === 'active') {
+                html = `
+                    <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;">
+                        <div class="card" style="text-align: center; width: 100%; max-width: 380px;">
+                            <div class="unlock-success">
+                                <div class="icon">✅</div>
+                                <h1>UNLOCKED!</h1>
+                                <p>Key <b style="color: var(--primary-color);">${key.key}</b> verified.</p>
+                                <div style="height: 1px; background: linear-gradient(90deg, transparent, var(--glass-border), transparent); margin: 15px 0;"></div>
+                                <p style="font-size: 11px;">Game: <b>${key.game}</b></p>
+                                <p style="font-size: 11px;">Plan: <b>${key.plan}</b></p>
+                                <p style="font-size: 11px;">Expiry: <b>${key.expiry}</b></p>
+                                <div style="height: 1px; background: linear-gradient(90deg, transparent, var(--glass-border), transparent); margin: 15px 0;"></div>
+                                <p style="color: var(--success); font-weight: 700;">🎉 App unlock ho gayi!</p>
+                                <button class="btn" style="margin-top: 15px;" onclick="window.location.href='?'">← BACK</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                html = `
+                    <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;">
+                        <div class="card" style="text-align: center; width: 100%; max-width: 380px;">
+                            <div class="unlock-fail">
+                                <div class="icon">❌</div>
+                                <h1>KEY EXPIRED</h1>
+                                <p>Yeh key <b>${key.status}</b> hai.</p>
+                                <button class="btn" style="margin-top: 15px;" onclick="window.location.href='?'">← BACK</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        } else {
+            html = `
+                <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;">
+                    <div class="card" style="text-align: center; width: 100%; max-width: 380px;">
+                        <div class="unlock-fail">
+                            <div class="icon">🚫</div>
+                            <h1>INVALID KEY</h1>
+                            <p>Yeh key database mein nahi hai.</p>
+                            <button class="btn" style="margin-top: 15px;" onclick="window.location.href='?'">← BACK</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+    // =====================================================================
+    // --- 10. UTILITIES ---
+    // =====================================================================
+    function showToast(msg, isError = false) {
+        const toast = document.getElementById('toast');
+        toast.innerText = msg;
+        toast.style.background = isError ? 'linear-gradient(135deg, #ef4444, #b91c1c)' : 'var(--primary-gradient)';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+    function generateRandomKey() { return 'RAHUL-' + Math.random().toString(36).substring(2, 8).toUpperCase(); }
+    function addLog(action, details) { logs.unshift({ time: new Date().toLocaleString(), action, details }); if(logs.length > 100) logs.pop(); localStorage.setItem('rahulLogs', JSON.stringify(logs)); renderLogs(); }
+    function saveKeys() { localStorage.setItem('rahulKeys', JSON.stringify(keys)); }
+    function saveUsers() { localStorage.setItem('rahulUsers', JSON.stringify(users)); }
+    function saveTrials() { localStorage.setItem('rahulTrials', JSON.stringify(trials)); }
+    function saveReferrals() { localStorage.setItem('rahulReferrals', JSON.stringify(referrals)); }
+    function saveSettings() { localStorage.setItem('rahulSettings', JSON.stringify(settings)); }
+    function playSound(type) {
+        if (!settings.sound && !settings.soundOnActions) return;
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode); gainNode.connect(audioCtx.destination);
+            oscillator.type = 'sine'; oscillator.frequency.value = type === 'click' ? 800 : (type === 'success' ? 1200 : 400);
+            gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+            oscillator.start(); oscillator.stop(audioCtx.currentTime + 0.1);
+        } catch(e) {}
+    }
+
+    // =====================================================================
+    // --- 11. DYNAMIC PANELS ---
+    // =====================================================================
+    function getPanelsForRole() {
+        const allPanels = [
+            { id: 'dashboard', title: 'Dashboard', icon: '🏠', content: getDashboardHTML(), roles: ['owner', 'admin', 'reseller', 'user'] },
+            { id: 'createKey', title: 'Create Key', icon: '➕', content: getCreateKeyHTML(), roles: ['owner', 'admin', 'reseller'] },
+            { id: 'bulkGenerate', title: 'Bulk Generate', icon: '⚡', content: getBulkGenerateHTML(), roles: ['owner', 'admin'] },
+            { id: 'keysList', title: 'Keys List', icon: '🔑', content: getKeysListHTML(), roles: ['owner', 'admin', 'reseller'] },
+            { id: 'keyLinkGenerator', title: 'Key Link Generator', icon: '🔗', content: getKeyLinkGeneratorHTML(), roles: ['owner', 'admin', 'reseller'] },
+            { id: 'update', title: 'Update / Extend', icon: '✏️', content: getUpdateHTML(), roles: ['owner', 'admin'] },
+            { id: 'kick', title: 'Kick Device', icon: '👢', content: getKickHTML(), roles: ['owner', 'admin'] },
+            { id: 'deviceManage', title: 'Device Manager', icon: '📱', content: getDeviceManageHTML(), roles: ['owner', 'admin', 'reseller'] },
+            { id: 'trial', title: 'Trial Manager', icon: '🎁', content: getTrialHTML(), roles: ['owner', 'admin'] },
+            { id: 'logs', title: 'Activity Logs', icon: '📜', content: getLogsHTML(), roles: ['owner', 'admin'] },
+            { id: 'backup', title: 'Backup', icon: '💾', content: getBackupHTML(), roles: ['owner'] },
+            { id: 'tips', title: 'Tips', icon: '💡', content: getTipsHTML(), roles: ['owner', 'admin', 'reseller', 'user'] },
+            { id: 'settings', title: 'Settings', icon: '⚙️', content: getSettingsHTML(), roles: ['owner', 'admin', 'reseller', 'user'] },
+            { id: 'usersManage', title: 'Users Manage', icon: '👤', content: getUsersManageHTML(), roles: ['owner', 'admin'] },
+            { id: 'referralManager', title: 'Referral Manager', icon: '🤝', content: getReferralManagerHTML(), roles: ['owner', 'admin'] },
+            { id: 'version', title: 'Version / Notice', icon: '🔔', content: getVersionHTML(), roles: ['owner', 'admin'] },
+            { id: 'about', title: 'About', icon: 'ℹ️', content: getAboutHTML(), roles: ['owner', 'admin', 'reseller', 'user'] },
+        ];
+        return allPanels.filter(p => p.roles.includes(currentRole));
+    }
+
+    function generatePanels() {
+        const panels = getPanelsForRole();
+        const sidebar = document.getElementById('sidebarMenu');
+        const container = document.getElementById('contentContainer');
+        if (!sidebar || !container) return;
+        sidebar.innerHTML = ''; container.innerHTML = '';
+        panels.forEach(panel => {
+            const li = document.createElement('li');
+            li.setAttribute('onclick', `showPage('${panel.id}')`);
+            li.innerHTML = `${panel.icon} ${panel.title}`;
+            li.id = `menu-${panel.id}`;
+            sidebar.appendChild(li);
+
+            const div = document.createElement('div');
+            div.id = panel.id; div.className = 'main-content';
+            div.innerHTML = panel.content;
+            container.appendChild(div);
+        });
+        const logoutLi = document.createElement('li');
+        logoutLi.setAttribute('onclick', 'logout()');
+        logoutLi.style.color = 'var(--danger)';
+        logoutLi.style.marginTop = '18px';
+        logoutLi.innerHTML = '🚪 LOGOUT';
+        sidebar.appendChild(logoutLi);
+    }
+
+    function showPage(pageId) {
+        document.querySelectorAll('.main-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.sidebar ul li').forEach(el => el.classList.remove('active'));
+        const page = document.getElementById(pageId);
+        if(page) page.classList.add('active');
+        const menu = document.getElementById(`menu-${pageId}`);
+        if(menu) menu.classList.add('active');
+        const panels = getPanelsForRole();
+        const panel = panels.find(p => p.id === pageId);
+        if(panel) safeSetText('pageTitle', panel.title);
+        if (window.innerWidth < 768) toggleSidebar();
+        if(pageId === 'dashboard') { renderDashboardStats(); renderChart(); }
+        if(pageId === 'keysList') { renderKeysList(); }
+        if(pageId === 'logs') { renderLogs(); }
+        if(pageId === 'usersManage') { renderUserManageList(); }
+        if(pageId === 'referralManager') { renderReferralList(); }
+        if(pageId === 'deviceManage') { renderDeviceManage(); }
+        if(pageId === 'keyLinkGenerator') { renderLinkGenerator(); }
+        if(pageId === 'settings') { loadSettingsUI(); }
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        if (sidebar) sidebar.classList.toggle('open');
+        if (overlay) overlay.classList.toggle('active');
+    }
+
+    // =====================================================================
+    // --- 12. HTML CONTENT ---
+    // =====================================================================
+    function getDashboardHTML() {
+        return `
+            <div class="status-bar"><span>✅ Connected</span><span id="currentTime">00:00:00 PM</span></div>
+            <div class="card" style="background: linear-gradient(135deg, rgba(255,140,0,0.15), rgba(255,215,0,0.05)); border-color: rgba(255,140,0,0.3);">
+                <p style="font-size: 11px; color: var(--primary-color); font-weight: 600;">💡 Role: <b>${currentRole.toUpperCase()}</b> • Balance: <b id="dashBalance">₹0</b></p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-box"><h3 id="statTotal">0</h3><p>Total Keys</p></div>
+                <div class="stat-box"><h3 id="statActive">0</h3><p>Active</p></div>
+                <div class="stat-box"><h3 id="statExpired">0</h3><p>Expired</p></div>
+                <div class="stat-box"><h3 id="statDevices">0</h3><p>Devices</p></div>
+                <div class="stat-box"><h3 id="statUses">0</h3><p>Uses</p></div>
+                <div class="stat-box"><h3 id="statReferrals">0</h3><p>Referrals</p></div>
+            </div>
+            <div class="card"><div class="card-title">📊 7-Day Analytics</div><div class="chart-container" id="chartContainer"></div></div>
+        `;
+    }
+
+    function getCreateKeyHTML() {
+        return `
+            <div class="card">
+                <div class="card-title">➕ Create License Key</div>
+                <div class="input-group"><label>Target Game</label>
+                    <select id="keyGame"><option value="PUBG">PUBG</option><option value="Free Fire">Free Fire</option><option value="BGMI">BGMI</option><option value="Call of Duty">Call of Duty</option></select>
+                </div>
+                <div class="input-group"><label>License Duration Plan</label>
+                    <select id="keyPlan">${licensePlans.map(p => `<option value="${p.id}">${p.label} - ₹${p.price}/Device</option>`).join('')}</select>
+                </div>
+                <div class="input-group"><label>Max Devices (HWIDs)</label><input type="number" id="keyMaxDevices" value="1" min="1" max="100"></div>
+                <div class="input-group"><label>Bulk Quantity</label><input type="number" id="keyBulkCount" value="1" min="1" max="500"></div>
+                <div class="input-group"><label>Custom License String (optional)</label><input type="text" id="newKeyInput" placeholder="Leave blank for auto"></div>
+                <div class="card" style="background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.05)); border-color: rgba(16,185,129,0.3); margin-bottom: 10px;">
+                    <p style="font-size: 11px; color: var(--success); font-weight: 600;">💰 Aapka Balance: <b id="createKeyBalance">₹0</b></p>
+                </div>
+                <button class="btn" onclick="createKey()">✨ CREATE LICENSE KEY</button>
+                <div id="createdKeyResult" style="margin-top: 12px;"></div>
+            </div>
+        `;
+    }
+
+    function getBulkGenerateHTML() {
+        return `
+            <div class="card">
+                <div class="card-title">⚡ Bulk Generate</div>
+                <div class="input-group"><label>Game</label><select id="bulkGame"><option value="PUBG">PUBG</option><option value="Free Fire">Free Fire</option></select></div>
+                <div class="input-group"><label>Plan</label><select id="bulkPlan">${licensePlans.map(p => `<option value="${p.id}">${p.label} - ₹${p.price}</option>`).join('')}</select></div>
+                <div class="input-group"><label>Count</label><input type="number" id="bulkCount" value="10" min="1" max="500"></div>
+                <div class="input-group"><label>Max Devices per Key</label><input type="number" id="bulkMaxDevices" value="1" min="1" max="100"></div>
+                <button class="btn" onclick="bulkGenerate()">⚡ GENERATE BULK KEYS</button>
+            </div>
+        `;
+    }
+
+    function getKeysListHTML() {
+        return `
+            <div class="card">
+                <div class="card-title">🔑 Keys List</div>
+                <div class="input-group"><input type="text" placeholder="🔍 search key..." oninput="searchKeys(this.value)"></div>
+                <div style="display: flex; gap: 6px; margin-bottom: 12px;">
+                    <button class="btn" style="flex:1;" onclick="renderKeysList()">🔄 REFRESH</button>
+                    <button class="btn btn-secondary" style="flex:1;" onclick="selectAllKeys()">☑️ ALL</button>
+                    <button class="btn btn-copy" style="flex:1;" onclick="copyAllKeysList()">📋 COPY ALL</button>
+                    <button class="btn btn-danger" style="flex:1;" onclick="deleteSelectedKeys()">🗑️ DEL</button>
+                </div>
+                <div id="keysListContainer"></div>
+            </div>
+        `;
+    }
+
+    function getKeyLinkGeneratorHTML() {
+        return `
+            <div class="card">
+                <div class="card-title">🔗 Key Link Generator</div>
+                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">
+                    Ek key select karein aur uske liye <b>unlock link</b> generate karein.
+                </p>
+                <div class="input-group">
+                    <label>Select Key</label>
+                    <select id="linkKeySelect">
+                        <option value="">-- Select a Key --</option>
+                        ${keys.map(k => `<option value="${k.key}">${k.key} (${k.game} - ${k.plan})</option>`).join('')}
+                    </select>
+                </div>
+                <button class="btn" onclick="generateLink()">🔗 GENERATE UNLOCK LINK</button>
+                <div id="linkResultContainer" style="margin-top: 15px;"></div>
+            </div>
+            <div class="card">
+                <div class="card-title">📋 Sab Links</div>
+                <div id="allLinksContainer" style="font-size: 11px; color: var(--text-muted);">
+                    Abhi tak koi link generate nahi kiya gaya.
+                </div>
+            </div>
+        `;
+    }
+
+    function generateLink() {
+        const sel = document.getElementById('linkKeySelect');
+        if (!sel) return showToast('Key selector not found', true);
+        const keyStr = sel.value;
+        if (!keyStr) return showToast('Pehle key select karein!', true);
+        const key = keys.find(k => k.key === keyStr);
+        if (!key) return showToast('Key not found!', true);
+        
+        const baseUrl = window.location.origin + window.location.pathname;
+        const unlockLink = `${baseUrl}?key=${encodeURIComponent(key.key)}`;
+        key.unlockLink = unlockLink;
+        saveKeys();
+        
+        const res = document.getElementById('linkResultContainer');
+        if (res) {
+            res.innerHTML = `
+                <div class="link-box">${unlockLink}</div>
+                <button class="btn" onclick="copyLink('${unlockLink}')">📋 COPY LINK</button>
+                <button class="btn btn-secondary" style="margin-top: 8px;" onclick="testLink('${unlockLink}')">🔍 TEST LINK</button>
+            `;
+        }
+        renderAllLinks();
+        showToast('Link Generated!');
+        addLog('GENERATE_LINK', key.key);
+    }
+
+    function copyLink(link) {
+        copyToClipboard(link).then(() => {
+            showToast('✅ Link Copied!');
+        }).catch(() => {
+            showToast('Copy fail!', true);
+        });
+    }
+
+    function testLink(link) { window.open(link, '_blank'); }
+
+    function renderAllLinks() {
+        const c = document.getElementById('allLinksContainer');
+        if (!c) return;
+        const keysWithLinks = keys.filter(k => k.unlockLink);
+        if (keysWithLinks.length === 0) {
+            c.innerHTML = 'Abhi tak koi link generate nahi kiya gaya.';
+            return;
+        }
+        c.innerHTML = keysWithLinks.map(k => `
+            <div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; margin-bottom: 6px; border: 1px solid var(--glass-border);">
+                <div style="color: var(--primary-color); font-weight: 700; font-size: 10px;">${k.key}</div>
+                <div style="font-size: 9px; color: var(--text-muted); margin: 3px 0;">${k.game} | ${k.plan}</div>
+                <div style="font-size: 9px; color: var(--primary-color); word-break: break-all; font-family: monospace; margin: 5px 0;">${k.unlockLink}</div>
+                <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 9px; width: auto;" onclick="copyLink('${k.unlockLink}')">📋 Copy</button>
+            </div>
+        `).join('');
+    }
+
+    function renderLinkGenerator() {
+        const sel = document.getElementById('linkKeySelect');
+        if (sel) {
+            sel.innerHTML = '<option value="">-- Select a Key --</option>' + keys.map(k => `<option value="${k.key}">${k.key} (${k.game} - ${k.plan})</option>`).join('');
+        }
+        renderAllLinks();
+    }
+
+    function getUpdateHTML() {
+        return `
+            <div class="card">
+                <div class="card-title">✏️ Update / Extend</div>
+                <div class="input-group"><input type="text" id="updateKey" placeholder="key"></div>
+                <div style="display: flex; gap: 8px;">
+                    <div class="input-group" style="flex: 1;"><select id="updateStatus"><option value="">status...</option><option value="active">Active</option><option value="paused">Paused</option><option value="banned">Banned</option></select></div>
+                    <div class="input-group" style="flex: 1;"><input type="number" id="updateMaxDevices" placeholder="Max Devices"></div>
+                </div>
+                <div class="input-group"><input type="number" id="extendDays" placeholder="+days extend"></div>
+                <button class="btn" onclick="updateKey()">💾 UPDATE</button>
+                <button class="btn btn-secondary" style="margin-top: 8px;" onclick="extendKey()">📅 EXTEND</button>
+                <button class="btn btn-secondary" style="margin-top: 8px;" onclick="resetDevices()">📱 RESET DEVICES</button>
+            </div>
+            <div class="card">
+                <div class="card-title">🗑️ Delete Key</div>
+                <div class="input-group"><input type="text" id="deleteKeyInput" placeholder="key"></div>
+                <button class="btn btn-danger" onclick="deleteKeyPermanent()">DELETE PERMANENTLY</button>
+            </div>
+        `;
+    }
+
+    function getKickHTML() {
+        return `<div class="card"><div class="card-title">👢 Kick Device</div><div class="input-group"><input type="text" id="kickKey" placeholder="key"></div><div class="input-group"><input type="text" id="kickDeviceId" placeholder="device_id / HWID"></div><button class="btn" onclick="kickDevice()">👢 KICK DEVICE</button></div>`;
+    }
+
+    function getDeviceManageHTML() {
+        return `
+            <div class="card">
+                <div class="card-title">📱 Device Manager</div>
+                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Ek key ko multiple devices par chalao.</p>
+                <div class="input-group"><label>Key</label><input type="text" id="dmKey" placeholder="Enter Key"></div>
+                <div class="input-group"><label>Device ID / HWID</label><input type="text" id="dmDeviceId" placeholder="Enter Device ID"></div>
+                <button class="btn" onclick="addDeviceToKey()">➕ ADD DEVICE TO KEY</button>
+                <button class="btn btn-secondary" style="margin-top: 8px;" onclick="renderDeviceManage()">🔄 REFRESH</button>
+            </div>
+            <div class="card">
+                <div class="card-title">📋 Registered Devices</div>
+                <div id="deviceListContainer" style="font-size: 11px; color: var(--text-muted);">No devices registered</div>
+            </div>
+        `;
+    }
+
+    function getTrialHTML() {
+        return `
+            <div class="card"><div class="card-title">🎁 Trial Manager</div>
+                <button class="btn btn-secondary" onclick="refreshTrials()">🔄 REFRESH</button>
+                <button class="btn btn-danger" style="margin-top: 8px;" onclick="deleteAllTrials()">🗑️ DELETE ALL TRIALS</button>
+            </div>
+        `;
+    }
+
+    function getLogsHTML() { 
+        return `<div class="card"><div class="card-title">📜 Activity Logs</div><button class="btn" onclick="refreshLogs()">🔄 REFRESH</button><div id="logsContainer" style="margin-top: 12px; font-size: 11px; color: var(--text-muted);">No logs.</div></div>`; 
+    }
+
+    function getBackupHTML() {
+        return `<div class="card"><div class="card-title">💾 Backup</div>
+            <button class="btn" onclick="downloadBackup('json')">⬇️ DOWNLOAD JSON</button>
+            <button class="btn btn-secondary" style="margin-top: 8px;" onclick="downloadBackup('csv')">📄 EXPORT CSV</button>
+            <button class="btn btn-secondary" style="margin-top: 8px;" onclick="downloadBackup('txt')">📝 EXPORT TXT</button>
+        </div>`;
+    }
+
+    function getTipsHTML() {
+        return `<div class="card"><div class="card-title">💡 Tips</div>
+            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--glass-border); font-size: 11px;"><b style="color: var(--primary-color);">1.</b> Referral code always UPPERCASE mein daalein.</div>
+            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--glass-border); font-size: 11px;"><b style="color: var(--primary-color);">2.</b> Reseller/Admin key banate hi balance kam ho jata hai.</div>
+            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--glass-border); font-size: 11px;"><b style="color: var(--primary-color);">3.</b> Owner se balance recharge karwao.</div>
+            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--glass-border); font-size: 11px;"><b style="color: var(--primary-color);">4.</b> 2 Owner Gmail supported hai.</div>
+        </div>`;
+    }
+
+    function getSettingsHTML() {
+        return `<div class="card"><div class="card-title">⚙️ Settings</div>
+            <div class="flex-row"><span>🔊 Sound</span><label class="switch"><input type="checkbox" id="setSound" onchange="updateSetting('sound', this.checked)"><span class="slider"></span></label></div>
+            <div class="flex-row"><span>📳 Haptic</span><label class="switch"><input type="checkbox" id="setHaptic" onchange="updateSetting('haptic', this.checked)"><span class="slider"></span></label></div>
+        </div>
+        <div class="card">
+            <div class="card-title">📱 Telegram Settings</div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">Apna Telegram username set karein.</p>
+            <div class="input-group">
+                <label>Telegram Username</label>
+                <input type="text" id="settingsTelegramUsername" placeholder="e.g. rahul_official" value="${telegramUsername}">
+            </div>
+            <button class="btn btn-telegram" onclick="saveTelegramUsername()">💾 SAVE TELEGRAM USERNAME</button>
+            <button class="btn btn-secondary" style="margin-top: 8px;" onclick="openTelegramProfile()">📱 OPEN MY TELEGRAM</button>
+        </div>
+        <div class="card"><div class="card-title">🗑️ Danger Zone</div><button class="btn btn-danger" onclick="clearAllData()">⚠️ CLEAR ALL DATA</button></div>`;
+    }
+
+    function loadSettingsUI() {
+        const el = (id) => document.getElementById(id);
+        if (el('setSound')) el('setSound').checked = settings.sound;
+        if (el('setHaptic')) el('setHaptic').checked = settings.haptic;
+        if (el('settingsTelegramUsername')) el('settingsTelegramUsername').value = telegramUsername;
+    }
+
+    function getUsersManageHTML() {
+        return `<div class="card"><div class="card-title">👥 Existing Users</div>
+            <button class="btn btn-secondary" onclick="renderUserManageList()">🔄 REFRESH</button>
+            <div id="userManageContainer" style="margin-top: 12px; text-align: center; color: var(--text-muted); font-size: 11px;">No users</div>
+        </div>
+        <div class="card">
+            <div class="card-title">💰 Add Balance to User</div>
+            <div class="input-group"><label>User ID</label><input type="number" id="addBalanceUserId" placeholder="Enter User ID"></div>
+            <div class="input-group"><label>Amount (₹)</label><input type="number" id="addBalanceAmount" placeholder="e.g. 500"></div>
+            <button class="btn btn-copy" onclick="addBalanceFromPanel()">💵 ADD BALANCE</button>
+        </div>`;
+    }
+
+    function getReferralManagerHTML() {
+        return `
+            <div class="card">
+                <div class="card-title">🤝 Create New Referral</div>
+                <div class="input-group"><label>Referral Code (blank = auto)</label><input type="text" id="newRefCode" placeholder="e.g. RAHUL-VIP"></div>
+                <div class="input-group"><label>Days</label><input type="number" id="newRefDays" value="30"></div>
+                <div class="input-group"><label>Amount (₹) - Initial Balance</label><input type="number" id="newRefAmount" value="100"></div>
+                <div class="input-group"><label>Role for this Referral</label>
+                    <select id="newRefRole"><option value="user">User</option><option value="reseller">Reseller</option><option value="admin">Admin</option></select>
+                </div>
+                <button class="btn" onclick="createReferral()">✨ CREATE REFERRAL</button>
+                <button class="btn btn-secondary" style="margin-top: 8px;" onclick="fixAllReferrals(); renderReferralList(); showToast('Referrals Fixed!');">🔧 FIX OLD REFERRALS</button>
+            </div>
+            <div class="card">
+                <div class="card-title">📋 All Referrals</div>
+                <button class="btn btn-secondary" onclick="renderReferralList()">🔄 REFRESH</button>
+                <div id="referralListContainer" style="margin-top: 12px;">No referrals</div>
+            </div>
+        `;
+    }
+
+    function getVersionHTML() {
+        return `<div class="card"><div class="card-title">🔔 Version / Notice</div>
+            <div class="input-group"><input type="text" id="versionInput" placeholder="version (e.g. 7.0)"></div>
+            <div class="input-group"><input type="text" id="updateMessageInput" placeholder="update message"></div>
+            <button class="btn" onclick="pushVersion()">🚀 PUSH VERSION</button>
+            <div class="input-group" style="margin-top: 12px;"><textarea id="noticeText" rows="3" placeholder="notice text"></textarea></div>
+            <button class="btn" onclick="pushNotice()">📢 PUSH NOTICE</button>
+        </div>`;
+    }
+
+    function getAboutHTML() {
+        return `<div class="card"><div class="card-title">ℹ️ About</div>
+            <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 10px; font-size: 12px; border: 1px solid var(--glass-border);">
+                <p style="color: var(--primary-color); font-weight: 800; font-size: 14px;">💻 RAHUL TOOL PANEL v19.0</p>
+                <p style="color: var(--text-muted); font-size: 9px; margin-top: 4px;">ULTRA PREMIUM EDITION</p>
+                <div style="height: 1px; background: linear-gradient(90deg, transparent, var(--glass-border), transparent); margin: 12px 0;"></div>
+                <p style="margin: 6px 0;">👑 2 Owner Gmail Support</p>
+                <p style="margin: 6px 0;">🔧 Referral Code Fix (Uppercase)</p>
+                <p style="margin: 6px 0;">💰 Balance System for Admin/Reseller</p>
+                <p style="margin: 6px 0;">🔗 Key Link Generator: Unlock Links</p>
+                <p style="margin: 6px 0;">📋 Copy Key & Copy Full License</p>
+                <p style="margin: 6px 0;">🎮 Game License: PUBG, FF, BGMI</p>
+                <p style="margin: 6px 0;">📱 Device Manager: HWID Lock</p>
+                <p style="margin: 6px 0;">🤝 Referral: Days + Amount + Role</p>
+                <p style="margin: 6px 0;">💬 Telegram Support Integration</p>
+                <div style="height: 1px; background: linear-gradient(90deg, transparent, var(--glass-border), transparent); margin: 12px 0;"></div>
+                <p style="color: var(--text-muted); font-size: 10px; text-align: center;">© 2026 RAHUL TOOL</p>
+            </div>
+        </div>`;
+    }
+
+    // =====================================================================
+    // --- 13. LICENSE KEY MANAGEMENT ---
+    // =====================================================================
+    function createKey() {
+        const game = document.getElementById('keyGame').value;
+        const planId = document.getElementById('keyPlan').value;
+        const plan = licensePlans.find(p => p.id === planId);
+        const maxDevices = parseInt(document.getElementById('keyMaxDevices').value) || 1;
+        const bulkCount = parseInt(document.getElementById('keyBulkCount').value) || 1;
+        let customKey = document.getElementById('newKeyInput').value.trim();
+
+        const totalCost = plan.price * bulkCount;
+
+        if (!hasEnoughBalance(totalCost)) {
+            return showToast(`❌ Insufficient Balance! Aapke paas ₹${getMyBalance()} hai, lekin ₹${totalCost} chahiye.`, true);
+        }
+
+        if (!deductBalance(totalCost)) {
+            return showToast('❌ Balance deduct fail!', true);
+        }
+
+        let createdKeys = [];
+        for (let i = 0; i < bulkCount; i++) {
+            const keyStr = (bulkCount === 1 && customKey) ? customKey : generateRandomKey();
+            const expiry = new Date();
+            if (plan.days >= 1) expiry.setDate(expiry.getDate() + plan.days);
+            else expiry.setHours(expiry.getHours() + plan.days * 24);
+
+            const newKey = {
+                id: Date.now() + i, key: keyStr, game, plan: plan.label, price: plan.price,
+                status: 'active', expiry: expiry.toISOString().split('T')[0],
+                devices: [], maxDevices, uses: 0, createdAt: new Date().toLocaleString(), unlockLink: '',
+                createdBy: currentUser ? currentUser.username : 'owner'
+            };
+            keys.push(newKey);
+            createdKeys.push(newKey);
+        }
+        saveKeys(); 
+        addLog('CREATE_LICENSE', `${bulkCount} ${game} keys (${plan.label}) - ₹${totalCost} deducted`);
+        showToast(`${bulkCount} Keys Created! ₹${totalCost} deducted.`);
+        document.getElementById('newKeyInput').value = '';
+        
+        const resultDiv = document.getElementById('createdKeyResult');
+        if (resultDiv) {
+            resultDiv.innerHTML = createdKeys.map(k => `
+                <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--glass-border);">
+                    <div style="color: var(--primary-color); font-weight: 700; font-size: 12px;">${k.key}</div>
+                    <div style="font-size: 10px; color: var(--text-muted); margin: 3px 0;">${k.game} | ${k.plan} | Expiry: ${k.expiry}</div>
+                    <div style="display: flex; gap: 6px; margin-top: 6px;">
+                        <button class="btn btn-copy" style="padding: 6px 10px; font-size: 10px; flex: 1;" onclick="copyKeyOnly('${k.key}')">📋 COPY KEY</button>
+                        <button class="btn btn-copy" style="padding: 6px 10px; font-size: 10px; flex: 1;" onclick="copyFullLicense('${k.key}')">📄 FULL LICENSE</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        renderDashboardStats(); renderKeysList();
+        updateUserDisplay();
+        if (document.getElementById('createKeyBalance')) {
+            document.getElementById('createKeyBalance').innerText = currentRole === 'owner' ? '∞' : `₹${getMyBalance()}`;
+        }
+    }
+
+    function bulkGenerate() {
+        const game = document.getElementById('bulkGame').value;
+        const planId = document.getElementById('bulkPlan').value;
+        const plan = licensePlans.find(p => p.id === planId);
+        const count = parseInt(document.getElementById('bulkCount').value) || 10;
+        const maxDevices = parseInt(document.getElementById('bulkMaxDevices').value) || 1;
+        if (count > 500) return showToast('Max 500 keys', true);
+
+        const totalCost = plan.price * count;
+        if (currentRole !== 'owner') {
+            if (!hasEnoughBalance(totalCost)) {
+                return showToast(`❌ Insufficient Balance! ₹${totalCost} chahiye.`, true);
+            }
+            if (!deductBalance(totalCost)) return showToast('❌ Balance deduct fail!', true);
+        }
+
+        for (let i = 0; i < count; i++) {
+            const expiry = new Date();
+            if (plan.days >= 1) expiry.setDate(expiry.getDate() + plan.days);
+            else expiry.setHours(expiry.getHours() + plan.days * 24);
+            keys.push({
+                id: Date.now() + i, key: generateRandomKey(), game, plan: plan.label, price: plan.price,
+                status: 'active', expiry: expiry.toISOString().split('T')[0], devices: [], maxDevices, uses: 0, createdAt: new Date().toLocaleString(), unlockLink: '',
+                createdBy: currentUser ? currentUser.username : 'owner'
+            });
+        }
+        saveKeys(); 
+        addLog('BULK_LICENSE', `${count} ${game} keys - ₹${totalCost}`);
+        showToast(`${count} Keys Generated! ${currentRole !== 'owner' ? '₹' + totalCost + ' deducted.' : ''}`);
+        renderDashboardStats(); renderKeysList(); updateUserDisplay();
+    }
+
+    let selectedKeys = new Set();
+    function renderKeysList(filterText = '') {
+        const c = document.getElementById('keysListContainer'); if (!c) return;
+        let filtered = keys.filter(k => k.key.toLowerCase().includes(filterText.toLowerCase()));
+        c.innerHTML = filtered.length === 0 ? '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:11px;">🔑 No keys found</div>' : '';
+        filtered.forEach(k => {
+            const div = document.createElement('div'); 
+            div.className = 'key-item';
+            div.innerHTML = `
+                <div style="flex:2; min-width: 0;">
+                    <div style="color:var(--primary-color); font-weight:700; font-size:10px; word-break: break-all;">${k.key}</div>
+                    <div style="font-size:9px; color:var(--text-muted);">${k.game} | ${k.plan} | ${k.expiry}</div>
+                </div>
+                <div style="flex:1; text-align:center;">
+                    <span class="key-status ${k.status==='active'?'active':'expired'}">${k.status}</span>
+                </div>
+                <div style="flex:1; text-align:right; font-size:9px;">
+                    ${(k.devices||[]).length}/${k.maxDevices}<br>₹${k.price}
+                </div>
+                <button class="copy-btn-sm" onclick="copyKeyOnly('${k.key}')" title="Copy Key">📋</button>
+                <button class="copy-btn-sm" onclick="copyFullLicense('${k.key}')" title="Copy Full License">📄</button>
+                <div style="margin-left: 4px;">
+                    <input type="checkbox" onchange="toggleKeySelect('${k.key}')" ${selectedKeys.has(k.key)?'checked':''}>
+                </div>
+            `;
+            c.appendChild(div);
+        });
+    }
+    function searchKeys(v) { renderKeysList(v); }
+    function toggleKeySelect(k) { selectedKeys.has(k) ? selectedKeys.delete(k) : selectedKeys.add(k); }
+    function selectAllKeys() { keys.forEach(k => selectedKeys.add(k.key)); renderKeysList(); }
+    function deleteSelectedKeys() { if(selectedKeys.size===0) return showToast('No keys selected',true); if(confirm(`Delete ${selectedKeys.size} keys?`)){ keys=keys.filter(k=>!selectedKeys.has(k.key)); selectedKeys.clear(); saveKeys(); renderKeysList(); renderDashboardStats(); showToast('Deleted!'); } }
+    function updateKey() { const k=document.getElementById('updateKey').value.trim(); const s=document.getElementById('updateStatus').value; const md=parseInt(document.getElementById('updateMaxDevices').value); const i=keys.findIndex(x=>x.key===k); if(i===-1) return showToast('Key not found',true); if(s) keys[i].status=s; if(md) keys[i].maxDevices=md; saveKeys(); renderKeysList(); renderDashboardStats(); showToast('Updated!'); }
+    function extendKey() { const k=document.getElementById('updateKey').value.trim(); const d=parseInt(document.getElementById('extendDays').value); if(!d) return showToast('Enter days',true); const i=keys.findIndex(x=>x.key===k); if(i===-1) return showToast('Key not found',true); const nd=new Date(keys[i].expiry); nd.setDate(nd.getDate()+d); keys[i].expiry=nd.toISOString().split('T')[0]; keys[i].status='active'; saveKeys(); renderKeysList(); renderDashboardStats(); showToast('Extended!'); }
+    function resetDevices() { const k=document.getElementById('updateKey').value.trim(); const i=keys.findIndex(x=>x.key===k); if(i===-1) return showToast('Key not found',true); keys[i].devices=[]; saveKeys(); renderKeysList(); showToast('Devices Reset!'); }
+    function deleteKeyPermanent() { const k=document.getElementById('deleteKeyInput').value.trim(); if(!k) return showToast('Enter key',true); if(confirm('Delete?')){ keys=keys.filter(x=>x.key!==k); saveKeys(); renderKeysList(); renderDashboardStats(); showToast('Deleted!'); } }
+    function kickDevice() { const k=document.getElementById('kickKey').value; const d=document.getElementById('kickDeviceId').value; if(!k||!d) return showToast('Enter Key & Device',true); const i=keys.findIndex(x=>x.key===k); if(i===-1) return showToast('Key not found',true); keys[i].devices = (keys[i].devices||[]).filter(dev => dev !== d); saveKeys(); addLog('KICK', `${d} from ${k}`); showToast('Device Kicked!'); }
+
+    // =====================================================================
+    // --- 14. DEVICE MANAGER ---
+    // =====================================================================
+    function addDeviceToKey() {
+        const keyStr = document.getElementById('dmKey').value.trim();
+        const deviceId = document.getElementById('dmDeviceId').value.trim();
+        if (!keyStr || !deviceId) return showToast('Enter Key & Device ID', true);
+        const idx = keys.findIndex(k => k.key === keyStr);
+        if (idx === -1) return showToast('Key not found', true);
+        if (!keys[idx].devices) keys[idx].devices = [];
+        if (keys[idx].devices.includes(deviceId)) return showToast('Device already added', true);
+        if (keys[idx].devices.length >= keys[idx].maxDevices) return showToast(`Max ${keys[idx].maxDevices} devices allowed`, true);
+        keys[idx].devices.push(deviceId);
+        keys[idx].uses = keys[idx].devices.length;
+        saveKeys(); renderDeviceManage(); renderKeysList();
+        addLog('ADD_DEVICE', `${deviceId} to ${keyStr}`);
+        showToast('Device Added!');
+    }
+
+    function renderDeviceManage() {
+        const c = document.getElementById('deviceListContainer');
+        if (!c) return;
+        let html = '';
+        keys.forEach(k => {
+            if (k.devices && k.devices.length > 0) {
+                html += `<div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--glass-border);">
+                    <div style="color: var(--primary-color); font-weight: 700; font-size: 11px;">${k.key}</div>
+                    <div style="font-size: 9px; color: var(--text-muted); margin: 3px 0;">${k.game} | ${k.plan} | Max: ${k.maxDevices}</div>
+                    <div style="margin-top: 5px;">${k.devices.map(d => `<span class="device-badge">${d}</span>`).join('')}</div>
+                </div>`;
+            }
+        });
+        c.innerHTML = html || 'No devices registered';
+    }
+
+    // =====================================================================
+    // --- 15. DASHBOARD & LOGS ---
+    // =====================================================================
+    function renderDashboardStats() {
+        const el = (id) => document.getElementById(id);
+        if(el('statTotal')) el('statTotal').innerText = keys.length;
+        if(el('statActive')) el('statActive').innerText = keys.filter(k => k.status === 'active').length;
+        if(el('statExpired')) el('statExpired').innerText = keys.filter(k => k.status === 'expired').length;
+        if(el('statDevices')) el('statDevices').innerText = keys.reduce((a, k) => a + (k.devices || []).length, 0);
+        if(el('statUses')) el('statUses').innerText = keys.reduce((a, k) => a + (k.uses || 0), 0);
+        if(el('statReferrals')) el('statReferrals').innerText = referrals.length;
+        if(el('dashBalance')) el('dashBalance').innerText = currentRole === 'owner' ? '∞' : `₹${getMyBalance()}`;
+        if(el('createKeyBalance')) el('createKeyBalance').innerText = currentRole === 'owner' ? '∞' : `₹${getMyBalance()}`;
+    }
+    function renderChart() { 
+        const c=document.getElementById('chartContainer'); if(!c) return; c.innerHTML=''; 
+        const d=[0,0,0,0,0,1,2]; const m=Math.max(...d,1); 
+        d.forEach(v=>{ const b=document.createElement('div');b.className='bar';b.style.height=`${(v/m)*100}%`;b.innerHTML=`<span class="bar-value">${v}</span>`;c.appendChild(b); }); 
+    }
+    function renderLogs() { 
+        const c=document.getElementById('logsContainer'); if(!c) return; 
+        c.innerHTML=logs.length===0?'No logs yet':logs.slice(0,15).map(l=>`<div style="border-bottom:1px solid rgba(255,255,255,0.05); padding:6px 0; font-size: 10px;"><span style="color:var(--primary-color); font-weight: 600;">[${l.time}]</span> <b>${l.action}</b>: ${l.details}</div>`).join(''); 
+    }
+    function refreshLogs() { renderLogs(); showToast('Logs Refreshed'); }
+
+    // =====================================================================
+    // --- 16. BACKUP ---
+    // =====================================================================
+    function downloadBackup(type) {
+        let content='', filename='', mime='';
+        if(type==='json'){ content=JSON.stringify({keys,users,referrals,logs,telegramUsername},null,2); filename=`rahul_backup_${Date.now()}.json`; mime='application/json'; }
+        else if(type==='csv'){ let r=['Key,Game,Plan,Status,Expiry,Devices,Uses,UnlockLink']; keys.forEach(k=>r.push(`${k.key},${k.game},${k.plan},${k.status},${k.expiry},${(k.devices||[]).length},${k.uses},${k.unlockLink||''}`)); content=r.join('\n'); filename=`rahul_keys_${Date.now()}.csv`; mime='text/csv'; }
+        else { let r=['RAHUL TOOL LICENSE KEYS','']; keys.forEach(k=>r.push(`${k.key} | ${k.game} | ${k.plan} | ${k.status} | ${k.expiry}`)); content=r.join('\n'); filename=`rahul_keys_${Date.now()}.txt`; mime='text/plain'; }
+        try { 
+            const uri=`data:${mime},${encodeURIComponent(content)}`; 
+            const a=document.createElement('a'); a.href=uri; a.download=filename; a.style.display='none'; 
+            document.body.appendChild(a); a.click(); 
+            setTimeout(()=>document.body.removeChild(a),100); 
+            showToast(`${type.toUpperCase()} Downloaded!`); 
+            addLog('BACKUP',type); 
+        } catch(e) { showToast('Download fail!',true); }
+    }
+
+    // =====================================================================
+    // --- 17. TRIAL, USERS, SETTINGS ---
+    // =====================================================================
+    function refreshTrials() { showToast('Refreshed'); }
+    function deleteAllTrials() { if(confirm('Delete all trials?')){ trials=[]; saveTrials(); showToast('Deleted!'); } }
+    
+    function renderUserManageList() { 
+        const c=document.getElementById('userManageContainer'); if(!c) return; 
+        c.innerHTML=users.length===0?'No users yet':users.map(u=>`
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size: 11px;">
+                <div>
+                    <div><b>ID: ${u.id}</b> - ${u.username} <span class="role-badge" style="font-size: 7px; padding: 2px 5px;">${u.role}</span></div>
+                    <div style="color: var(--success); font-size: 10px;">Balance: ₹${u.balance || 0}</div>
+                </div>
+                <button class="btn btn-danger" style="width:auto;padding:3px 10px;font-size:9px;" onclick="deleteUser(${u.id})">Del</button>
+            </div>
+        `).join(''); 
+    }
+    
+    function deleteUser(id) { users=users.filter(u=>u.id!==id); saveUsers(); renderUserManageList(); showToast('User Deleted'); }
+    
+    function addBalanceFromPanel() {
+        const userId = parseInt(document.getElementById('addBalanceUserId').value);
+        const amount = parseInt(document.getElementById('addBalanceAmount').value);
+        if (!userId || !amount) return showToast('User ID aur Amount daalein!', true);
+        if (addBalanceToUser(userId, amount)) {
+            showToast(`₹${amount} added to user ID ${userId}`);
+            renderUserManageList();
+            document.getElementById('addBalanceUserId').value = '';
+            document.getElementById('addBalanceAmount').value = '';
+        } else {
+            showToast('User not found!', true);
+        }
+    }
+    
+    function updateSetting(k,v) { settings[k]=v; saveSettings(); showToast(`${k} ${v?'ON':'OFF'}`); }
+    function clearAllData() { if(confirm('Clear all data?')){ localStorage.clear(); location.reload(); } }
+    function pushVersion() { showToast('Version Pushed!'); addLog('VERSION', document.getElementById('versionInput').value); }
+    function pushNotice() { showToast('Notice Pushed!'); addLog('NOTICE', document.getElementById('noticeText').value); }
+
+    // =====================================================================
+    // --- 18. REFERRAL MANAGEMENT ---
+    // =====================================================================
+    function createReferral() {
+        let code = document.getElementById('newRefCode').value.trim().toUpperCase();
+        if (!code) code = 'RAHUL-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        const days = parseInt(document.getElementById('newRefDays').value) || 30;
+        const amount = parseInt(document.getElementById('newRefAmount').value) || 0;
+        const role = document.getElementById('newRefRole').value;
+        if (referrals.find(r => r.code.toUpperCase() === code)) return showToast('Yeh code already exists!', true);
+        referrals.push({ code, days, amount, role, createdBy: currentRole, used: false, createdAt: new Date().toLocaleString() });
+        saveReferrals(); renderReferralList();
+        addLog('CREATE_REFERRAL', `Code: ${code}, Balance: ₹${amount}`);
+        showToast(`Referral ${code} created! ₹${amount} balance.`);
+        document.getElementById('newRefCode').value = '';
+    }
+
+    function renderReferralList() {
+        const c = document.getElementById('referralListContainer');
+        if (!c) return;
+        if (referrals.length === 0) { c.innerHTML = 'No referrals'; return; }
+        c.innerHTML = referrals.map(r => `
+            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--glass-border);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="color: var(--primary-color); font-weight: 700; font-size: 11px;">${r.code}</div>
+                        <div style="font-size: 10px; color: var(--text-muted); margin: 3px 0;">${r.days} days • ₹${r.amount} balance • ${r.role}</div>
+                        <div style="font-size: 9px; color: ${r.used ? '#10b981' : '#ffd700'}; font-weight: 600;">${r.used ? '✅ Used by ' + (r.usedBy || 'someone') : '⏳ Available'}</div>
+                    </div>
+                    <button class="btn btn-danger" style="width: auto; padding: 5px 12px; font-size: 9px;" onclick="deleteReferral('${r.code}')">Del</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function deleteReferral(code) {
+        if (confirm('Delete referral ' + code + '?')) {
+            referrals = referrals.filter(r => r.code.toUpperCase() !== code.toUpperCase());
+            saveReferrals(); renderReferralList();
+            showToast('Referral deleted');
+        }
+    }
+</script>
+</body>
+</html>
